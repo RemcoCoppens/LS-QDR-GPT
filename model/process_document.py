@@ -70,7 +70,9 @@ class ProcessDocument:
 
     def get_LS_output(self):
         self._EXTRACT()
-        return self.pdf.raw_text, self.attributes
+        self.attributes['doctype'] = self.clf.doctype
+        raw_text = 'KEURINGSRAPPORT || INSPECTIE_ONDERHOUDSRAPPORT' + '\n\n' + self.pdf.raw_text
+        return raw_text, self.attributes
 
 if __name__ == "__main__":
     import pandas as pd

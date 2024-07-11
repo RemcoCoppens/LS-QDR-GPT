@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, request, jsonify, render_template
+from flask import Flask, send_from_directory, request, jsonify, render_template, session, redirect, url_for
 import os
 from model.process_document import ProcessDocument
 from label_studio_sdk import Client
@@ -6,11 +6,26 @@ from datetime import datetime
 import re
 
 app = Flask(__name__, template_folder='templates/')
+app.secret_key = 'ZFoaoe7ou3'
+
+# @app.route('/')
+# def index():
+#     projects = get_ls_projects()
+#     return render_template('upload.html', projects=projects)
 
 @app.route('/')
 def index():
+    if 'api_key' not in session:
+        return redirect(url_for('get_api_key'))
     projects = get_ls_projects()
     return render_template('upload.html', projects=projects)
+
+@app.route('/get_api_key', methods=['GET', 'POST'])
+def get_api_key():
+    if request.method == 'POST':
+        session['api_key'] = request.form['api_key']
+        return redirect(url_for('index'))
+    return render_template('api_key.html')
 
 @app.route('/sw.js')
 def service_worker():
@@ -43,7 +58,7 @@ def process():
              
             doc = ProcessDocument(file_path=pdf_path)
             text, labels = doc.get_LS_output()
-            ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels))
+            ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels, ))
 
             uploaded_files.append(file.filename)
             response_data.append({"filename": file.filename, "status": "Processed"})
@@ -54,11 +69,10 @@ def process():
         data=ls_data_ingestion,
         project_title=project_title
     )
-    # return jsonify({"message": f"Processing completed, Data uploaded to Label Studio project: {project_title}", "details": response_data}), 200
     return render_template('process.html', project_name=project_title, uploaded_files=uploaded_files)
 
 def get_ls_projects() -> list:
-    client = Client(url='http://localhost:8080', api_key='3b925d759ac4407f1e3f6963867927f5a3759972')
+    client = Client(url='http://localhost:8080', api_key=session.get('api_key'))
     projects = client.get_projects()
     return [project.title for project in projects]
 
@@ -110,12 +124,13 @@ def prepare_task(raw_text:str, labels:dict) -> dict:
     }
 
 def upload_to_label_studio(data:list, project_title:str) -> None:
-    client = Client(url='http://localhost:8080', api_key='3b925d759ac4407f1e3f6963867927f5a3759972')
+    client = Client(url='http://localhost:8080', api_key=session.get('api_key'))
     project = get_project_by_title(client, project_title)
     if not project:
         project = client.start_project(title=project_title, label_config="""
         <View>
         <Labels name="label" toName="text">
+            <label value="doctype"></label>
             <Label value="klant_naam"></Label>
             <Label value="gebouw_naam"></Label>
             <Label value="adres"></Label>
