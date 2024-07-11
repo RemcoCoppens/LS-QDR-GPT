@@ -163,3 +163,4 @@ cython_debug/
 
 static/
 templates/
+model/embeddings/saved_models/
