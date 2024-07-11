@@ -5,7 +5,7 @@ from label_studio_sdk import Client
 from datetime import datetime
 import re
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates/')
 
 @app.route('/')
 def index():
@@ -58,7 +58,7 @@ def process():
     return render_template('process.html', project_name=project_title, uploaded_files=uploaded_files)
 
 def get_ls_projects() -> list:
-    client = Client(url='http://localhost:8080', api_key='423d3ad2f3f42774c15cf061ffa569137dc57334')
+    client = Client(url='http://localhost:8080', api_key='3b925d759ac4407f1e3f6963867927f5a3759972')
     projects = client.get_projects()
     return [project.title for project in projects]
 
@@ -110,7 +110,7 @@ def prepare_task(raw_text:str, labels:dict) -> dict:
     }
 
 def upload_to_label_studio(data:list, project_title:str) -> None:
-    client = Client(url='http://localhost:8080', api_key='423d3ad2f3f42774c15cf061ffa569137dc57334')
+    client = Client(url='http://localhost:8080', api_key='3b925d759ac4407f1e3f6963867927f5a3759972')
     project = get_project_by_title(client, project_title)
     if not project:
         project = client.start_project(title=project_title, label_config="""
@@ -151,3 +151,14 @@ def get_project_by_title(client, title):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+    # app.run(debug=True)
+
+    # import requests
+    # try:
+    #     response = requests.get('http://127.0.0.1:5000')
+    #     if response.status_code == 200:
+    #         print('Connection successful')
+    #     else:
+    #         print('Connection failed with status code:', response.status_code)
+    # except requests.exceptions.RequestException as e:
+    #     print('Failed to establish a connection:', e)

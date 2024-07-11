@@ -13,6 +13,7 @@ dependencies:
   - aiosignal=1.2.0=pyhd3eb1b0_0
   - annotated-types=0.7.0=pyhd8ed1ab_0
   - anyio=4.4.0=pyhd8ed1ab_0
+  - appdirs=1.4.4=pyhd3eb1b0_0
   - arrow-cpp=11.0.0=ha770c72_5_cpu
   - astor=0.8.1=py39h06a4308_0
   - asttokens=2.4.1=pyhd8ed1ab_0
@@ -39,9 +40,9 @@ dependencies:
   - brotli-python=1.0.9=py39h6a678d5_8
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.19.1=h5eee18b_0
-  - ca-certificates=2024.6.2=hbcca054_0
+  - ca-certificates=2024.7.2=h06a4308_0
   - cachetools=5.3.3=py39h06a4308_0
-  - certifi=2024.6.2=pyhd8ed1ab_0
+  - certifi=2024.7.4=py39h06a4308_0
   - cffi=1.16.0=py39h5eee18b_1
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - click=8.1.7=py39h06a4308_0
@@ -97,6 +98,8 @@ dependencies:
   - keras-preprocessing=1.1.2=pyhd3eb1b0_0
   - keyutils=1.6.1=h166bdaf_0
   - krb5=1.21.2=h659d440_0
+  - label-studio-sdk=0.0.32=pyhd8ed1ab_0
+  - label-studio-tools=0.0.4=pyhd8ed1ab_0
   - langchain=0.2.6=pyhd8ed1ab_0
   - langchain-core=0.2.10=pyhd8ed1ab_0
   - langchain-text-splitters=0.2.2=pyhd8ed1ab_0
@@ -148,7 +151,9 @@ dependencies:
   - libxcb=1.15=h7f8727e_0
   - libxcrypt=4.4.36=hd590300_1
   - libxml2=2.11.5=h0d562d8_0
+  - libxslt=1.1.37=h0054252_1
   - libzlib=1.2.13=h4ab18f5_6
+  - lxml=4.9.3=py39hed45dcc_1
   - lz4-c=1.9.4=h6a678d5_1
   - lzo=2.10=h7b6447c_2
   - markdown=3.4.1=py39h06a4308_0
@@ -299,4 +304,4 @@ dependencies:
       - toolz==0.12.1
       - typing-inspect==0.9.0
       - watchdog==4.0.1
-prefix: /home/remcocoppens/anaconda3/envs/ls-venv
+prefix: /home/remcocoppens/miniconda3/envs/ls-venv
