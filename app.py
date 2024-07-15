@@ -55,8 +55,12 @@ def process():
         if file and file.filename.endswith('.pdf'):
             pdf_path = os.path.join('/tmp', file.filename)
             file.save(pdf_path)
-             
-            doc = ProcessDocument(file_path=pdf_path)
+            
+            try:
+                doc = ProcessDocument(file_path=pdf_path)
+            except Exception as e:
+                continue
+
             text, labels = doc.get_LS_output()
             ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels, ))
 

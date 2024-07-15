@@ -59,15 +59,22 @@ class PdfParser:
         Returns:
             object: Parser class instance containing all information.
         """
-        if self.n_tokens > 0:
-            parser = PDF_Parser(
+        parser = PDF_Parser(
                 file_path=self.file_path + self.ext,
                 max_pages_ingestion=self.max_pages_ingestion
             )
-            if parser._output_accepted():
-                return parser
 
-        return PDF_Image_Parser(
-            file_path=self.file_path + self.ext,
-            max_pages_ingestion=self.max_pages_ingestion
-        )
+        return parser
+
+        # if self.n_tokens > 0:
+        #     parser = PDF_Parser(
+        #         file_path=self.file_path + self.ext,
+        #         max_pages_ingestion=self.max_pages_ingestion
+        #     )
+        #     if parser._output_accepted():
+        #         return parser
+
+        # return PDF_Image_Parser(
+        #     file_path=self.file_path + self.ext,
+        #     max_pages_ingestion=self.max_pages_ingestion
+        # )
