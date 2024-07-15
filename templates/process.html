@@ -1,0 +1,27 @@
+<!-- process.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Processing Complete</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('favicon') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="form__container">
+            <h1>Processing Complete</h1>
+            <h2>Project Name: {{ project_name }}</h2>
+            <h3>Uploaded Files:</h3>
+            <ul>
+                {% for file in uploaded_files %}
+                    <li>{{ file }}</li>
+                {% endfor %}
+            </ul>
+            <a href="http://localhost:5000" class="btn-goto-labelstudio">Upload more data</a>
+            <a href="http://localhost:8080" class="btn-goto-labelstudio">Go to Labelstudio</a>
+        </div>
+    </div>
+</body>
+</html>

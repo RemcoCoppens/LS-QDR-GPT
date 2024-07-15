@@ -1,0 +1,101 @@
+/* Global Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../static/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+h1 {
+    color: #008ACF;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100px;
+}
+
+.btn-goto-labelstudio {
+    display: inline-block;
+    background-color: #008ACF;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-goto-labelstudio:hover {
+    background-color: #006ba1;
+}
+
+/* Specific Styles for upload.html */
+
+.form__container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px; /* Adjust width as needed */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Add margin between sections */
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccd42b;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    margin: 20px 0;
+}
+
+.file-list {
+    max-height: 120px; /* Adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.file-list p {
+    margin: 5px 0;
+}
+
+.file-upload button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #ff6347; /* Red color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-upload button:hover {
+    background-color: #ff4836; /* Darker red on hover */
+}
+

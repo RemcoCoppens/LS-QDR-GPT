@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Documents</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('favicon') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="form__container">
+            <h1>Upload Documents</h1>
+            <form action="/process" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label for="project_name">Select Project:</label>
+                    <select id="project_name" name="project_name">
+                        <option value="" selected>Choose Project</option>
+                        {% for project in projects %}
+                            <option value="{{ project }}">{{ project }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="files">Choose Files:</label>
+                    <input type="file" id="files" name="files" multiple>
+                    <button type="button" id="clear-files" style="display: none;">X</button>
+                </div>
+                <div class="input-group">
+                    <label>Selected Files:</label>
+                    <div class="file-list" id="file-list">
+                        <!-- This div will dynamically populate with selected files -->
+                    </div>
+                </div>
+                <div class="submit-button">
+                    <input type="submit" value="Upload Documents">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Function to handle file selection change
+        $('#files').change(function() {
+            var fileList = '';
+            var files = $(this)[0].files;
+            for (var i = 0; i < files.length; i++) {
+                fileList += '<p>' + files[i].name + '</p>';
+            }
+            $('#file-list').html(fileList);
+
+            // Toggle visibility of clear button based on file selection
+            if (files.length > 0) {
+                $('#clear-files').show();
+            } else {
+                $('#clear-files').hide();
+            }
+        });
+
+        // Function to handle clearing file selection
+        $('#clear-files').click(function() {
+            $('#files').val(null);
+            $('#file-list').html('');
+            $(this).hide();
+        });
+    });
+    </script>
+</body>
+</html>
