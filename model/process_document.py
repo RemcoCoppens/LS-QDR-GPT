@@ -1,4 +1,5 @@
 import os
+import re
 import tensorflow as tf
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
 # This will suppress TensorFlow CUDA related warnings
@@ -10,7 +11,7 @@ from tqdm import TqdmWarning
 warnings.filterwarnings("ignore", category=TqdmWarning)
 
 from model.pdf_parser.parser import PdfParser
-from model.embeddings.classifier import EmbeddingClassifier
+from model.classifier import Classifier
 from model.extractor.chat import ExtractAttributes
 
 class UnknownType(Exception):
@@ -31,8 +32,10 @@ class ProcessDocument:
 
     def check_document_validity(self):
         if self.file_ext.lower() != '.pdf':
-            raise UnknownType(f"The retrieved document type {self.file_ext.lower()} cannot be processed yet.")
-    
+            raise UnknownType(
+                f"The retrieved document type {self.file_ext.lower()} cannot be processed yet."
+            )
+
     def _PARSE(self):
         self.pdf = PdfParser(
             file_path=self.file_path
@@ -43,9 +46,9 @@ class ProcessDocument:
             file_path=self.file_path
         )
         
-        self.clf = EmbeddingClassifier(
-            model_path=self.clf_model_path,
-            raw_text=self.pdf.raw_text
+        self.clf = Classifier(
+            raw_text=self.pdf.raw_text,
+            file_name=self.file_name
         )
 
         print(f"The document is classified as: {self.clf.doctype}")
@@ -56,48 +59,50 @@ class ProcessDocument:
             file_path=self.file_path
         )
         
-        self.clf = EmbeddingClassifier(
-            model_path=self.clf_model_path,
-            raw_text=self.pdf.raw_text
+        self.clf = Classifier(
+            raw_text=self.pdf.raw_text,
+            file_name=self.file_name
         )
 
         self.extractor = ExtractAttributes(
-            document_type=self.clf.doctype, 
+            document_type=self.clf.doctype,
             raw_text=self.pdf.raw_text
         )
 
         self.attributes = self.extractor.attributes.to_dict()
 
+    def add_chat_generated_content(self, text:str, labels:dict) -> str:
+        """Add text that chat generated instead of looked up to answer extraction query.
+
+        Args:
+            text (str): Raw text extracted from file.
+            labels (dict): Attribute labels extracted from file.
+
+        Returns:
+            str: Updated string, with prefix of chat generated content.
+        """
+
+        generated_labels = []
+        for label, values in labels.items():
+            if not isinstance(values, list):
+                values = [values]
+            for value in values:
+                if value is not None:
+                    pattern = re.escape(value)
+                    if re.findall(pattern, text) == []:
+                        generated_labels.append(
+                            f'- {label}: {value}'
+                        )
+
+        prefix = "*Chat generated text:* \n"
+        postfix = '-' * 20 + '\n\n'
+        return prefix + '\n'.join(generated_labels) + postfix + text
+
     def get_LS_output(self):
         self._EXTRACT()
+        adjusted_raw_text = self.add_chat_generated_content(
+            text=self.pdf.raw_text, labels=self.attributes
+        )
         self.attributes['doctype'] = self.clf.doctype
-        raw_text = 'KEURINGSRAPPORT || INSPECTIE_ONDERHOUDSRAPPORT' + '\n\n' + self.pdf.raw_text
-        return raw_text, self.attributes
-
-if __name__ == "__main__":
-    import pandas as pd
-
-    data_dir = "Bonnen Isala"
-
-    output = {
-        'fname': [],
-        'doctype': [],
-        'certainty': []
-    }
-
-    for fname in os.listdir(f'data/{data_dir}'):
-        doc = ProcessDocument(file_path=f"data/{data_dir}/{fname}")
-        doc._CLASSIFY()
-
-        output['fname'].append(fname)
-        output['doctype'].append(doc.clf.doctype)
-        output['certainty'].append(doc.clf.certainty)
-
-    df = pd.DataFrame(data=output)
-
-
-
-
-
-
-
+        adjusted_raw_text = 'KEURINGSRAPPORT || INSPECTIE_ONDERHOUDSRAPPORT' + '\n\n' + adjusted_raw_text
+        return adjusted_raw_text, self.attributes

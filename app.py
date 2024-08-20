@@ -40,7 +40,7 @@ def favicon():
 def process():
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}), 400
-    
+
     files = request.files.getlist('files')
     project_name = request.form.get('project_name')
     if project_name:
@@ -55,7 +55,7 @@ def process():
         if file and file.filename.endswith('.pdf'):
             pdf_path = os.path.join('/tmp', file.filename)
             file.save(pdf_path)
-            
+
             try:
                 doc = ProcessDocument(file_path=pdf_path)
             except Exception as e:

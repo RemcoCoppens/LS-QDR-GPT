@@ -13,21 +13,13 @@ from langchain_core._api.beta_decorator import LangChainBetaWarning
 warnings.filterwarnings("ignore", category=LangChainBetaWarning)
 
 from model.extractor.schemas import SchemaLookup
-from model.extractor.examples import ExampleSet
 
 class ExtractAttributes:
-    def __init__(self, document_type:str, raw_text:str, example_files:list[str]=[]):
+    def __init__(self, document_type:str, raw_text:str):
         self.setup_environment()
 
         self.document_type = document_type.upper()
         self.selected_schema = SchemaLookup.get_schema(doctype=document_type)
-        
-        self.example_files = example_files
-        if len(self.example_files) > 0:
-            self.example_set = ExampleSet(
-                document_type = self.document_type, 
-                example_fnames = self.example_files
-            )
 
         self.prompt = self.create_chat_prompts()
         self.llm = ChatOpenAI(
@@ -93,20 +85,7 @@ class ExtractAttributes:
         Returns:
             dict: An overview of the found attributes.
         """
-        with get_openai_callback() as cb:
-            if len(self.example_files) > 0:
-                attributes = self.runnable.invoke({"text": input, "examples": self.example_set.messages})
-            else:
-                attributes = self.runnable.invoke({"text": input, "examples": []})
-        
+        attributes = self.runnable.invoke({"text": input, "examples": []})
 
-        # self.log_API_call(
-        #     n_tokens=cb.total_tokens, 
-        #     cost=cb.total_cost
-        # )
         return attributes
-    
-if __name__ == "__main__":
-    extractor = ExtractAttributes(document_type="KEURINGSRAPPORT")
 
-    # test = extractor.example_set
