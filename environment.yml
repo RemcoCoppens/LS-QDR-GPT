@@ -1,4 +1,4 @@
-name: ls-venv
+name: QDR-env
 channels:
   - anaconda
   - conda-forge
@@ -14,6 +14,8 @@ dependencies:
   - annotated-types=0.7.0=pyhd8ed1ab_0
   - anyio=4.4.0=pyhd8ed1ab_0
   - appdirs=1.4.4=pyhd3eb1b0_0
+  - argon2-cffi=23.1.0=pyhd8ed1ab_0
+  - argon2-cffi-bindings=21.2.0=py39hd1e30aa_4
   - arrow-cpp=11.0.0=ha770c72_5_cpu
   - astor=0.8.1=py39h06a4308_0
   - asttokens=2.4.1=pyhd8ed1ab_0
@@ -33,6 +35,8 @@ dependencies:
   - aws-checksums=0.1.14=h034cb4b_3
   - aws-crt-cpp=0.19.7=h0073717_7
   - aws-sdk-cpp=1.10.57=h4707e7a_4
+  - bcrypt=4.1.3=py39ha68c5e3_0
+  - beautifulsoup4=4.12.3=pyha770c72_0
   - blas=1.0=mkl
   - blinker=1.6.2=py39h06a4308_0
   - boost-cpp=1.82.0=h789c474_2
@@ -40,7 +44,7 @@ dependencies:
   - brotli-python=1.0.9=py39h6a678d5_8
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.19.1=h5eee18b_0
-  - ca-certificates=2024.7.2=h06a4308_0
+  - ca-certificates=2024.7.4=hbcca054_0
   - cachetools=5.3.3=py39h06a4308_0
   - certifi=2024.7.4=py39h06a4308_0
   - cffi=1.16.0=py39h5eee18b_1
@@ -48,18 +52,17 @@ dependencies:
   - click=8.1.7=py39h06a4308_0
   - comm=0.2.2=pyhd8ed1ab_0
   - cryptography=42.0.5=py39hdda0065_1
-  - cuda-version=11.8=hcce14f8_3
-  - cudatoolkit=11.8.0=h6a678d5_0
-  - cudnn=8.9.2.26=cuda11_0
-  - cupti=11.8.0=he078b1a_0
+  - cycler=0.11.0=pyhd3eb1b0_0
   - datasets=2.12.0=py39h06a4308_0
   - debugpy=1.8.1=py39h3d6467e_0
   - decorator=5.1.1=pyhd3eb1b0_0
   - dill=0.3.6=py39h06a4308_0
+  - ecdsa=0.19.0=pyhd8ed1ab_0
   - et_xmlfile=1.1.0=py39h06a4308_0
   - exceptiongroup=1.2.0=py39h06a4308_0
   - executing=2.0.1=pyhd8ed1ab_0
   - expat=2.6.2=h59595ed_0
+  - fastapi=0.103.0=py39h06a4308_0
   - filelock=3.13.1=py39h06a4308_0
   - flask=3.0.3=py39h06a4308_0
   - flatbuffers=23.3.3=hcb278e6_1
@@ -70,12 +73,14 @@ dependencies:
   - gflags=2.2.2=h6a678d5_1
   - giflib=5.2.1=h5eee18b_3
   - glog=0.6.0=h6f12383_0
+  - gmp=6.3.0=hac33072_2
+  - gmpy2=2.1.5=py39h048c657_1
   - google-auth=2.29.0=py39h06a4308_0
   - google-auth-oauthlib=0.4.4=pyhd3eb1b0_0
   - google-pasta=0.2.0=pyhd3eb1b0_0
   - greenlet=3.0.3=py39h3d6467e_0
   - grpc-cpp=1.51.1=h27aab58_1
-  - grpcio=1.51.1=py39he859823_1
+  - h11=0.14.0=py39h06a4308_0
   - h5py=3.11.0=py39hbe37b52_0
   - hdf5=1.12.1=h2b7332f_3
   - huggingface_hub=0.23.1=py39h06a4308_0
@@ -97,9 +102,8 @@ dependencies:
   - keras=2.11.0=py39h06a4308_0
   - keras-preprocessing=1.1.2=pyhd3eb1b0_0
   - keyutils=1.6.1=h166bdaf_0
+  - kiwisolver=1.4.4=py39h6a678d5_0
   - krb5=1.21.2=h659d440_0
-  - label-studio-sdk=0.0.32=pyhd8ed1ab_0
-  - label-studio-tools=0.0.4=pyhd8ed1ab_0
   - langchain=0.2.6=pyhd8ed1ab_0
   - langchain-core=0.2.10=pyhd8ed1ab_0
   - langchain-text-splitters=0.2.2=pyhd8ed1ab_0
@@ -158,14 +162,17 @@ dependencies:
   - lzo=2.10=h7b6447c_2
   - markdown=3.4.1=py39h06a4308_0
   - markupsafe=2.1.3=py39h5eee18b_0
+  - matplotlib=3.3.2=0
+  - matplotlib-base=3.3.2=py39hd261b2b_0
   - matplotlib-inline=0.1.7=pyhd8ed1ab_0
   - mkl=2023.1.0=h213fc3f_46344
   - mkl-service=2.4.0=py39h5eee18b_1
   - mkl_fft=1.3.8=py39h5eee18b_0
   - mkl_random=1.2.4=py39hdb19cb5_0
+  - mpc=1.3.1=hfe3b2da_0
+  - mpfr=4.2.1=h9458935_1
   - multidict=6.0.4=py39h5eee18b_0
   - multiprocess=0.70.14=py39h06a4308_0
-  - nccl=2.22.3.1=hee583db_0
   - ncurses=6.5=h59595ed_0
   - nest-asyncio=1.6.0=py39h06a4308_0
   - numexpr=2.8.7=py39h85018f9_0
@@ -174,17 +181,20 @@ dependencies:
   - oauthlib=3.2.2=py39h06a4308_0
   - openjpeg=2.5.0=h488ebb8_3
   - openpyxl=3.1.2=py39h5eee18b_0
-  - openssl=3.3.1=h4ab18f5_1
+  - openssl=3.3.1=h4bc722e_2
   - opt_einsum=3.3.0=pyhd3eb1b0_1
   - orc=1.8.2=hfdbbad2_2
   - orjson=3.10.4=py39ha68c5e3_0
+  - outcome=1.1.0=pyhd3eb1b0_0
   - packaging=23.2=pyhd8ed1ab_0
-  - pandas=2.2.2=py39h6a678d5_0
+  - pandas=2.2.2=py39hfc16268_1
   - parso=0.8.4=pyhd8ed1ab_0
+  - passlib=1.7.4=pyhd8ed1ab_1
   - pexpect=4.9.0=pyhd8ed1ab_0
   - pickleshare=0.7.5=pyhd3eb1b0_1003
   - pip=24.0=py39h06a4308_0
   - platformdirs=4.2.2=pyhd8ed1ab_0
+  - polars=1.2.1=py39h883198d_0
   - prompt-toolkit=3.0.47=pyha770c72_0
   - protobuf=4.21.12=py39h227be39_0
   - psutil=6.0.0=py39hd3abc70_0
@@ -197,11 +207,11 @@ dependencies:
   - pyasn1-modules=0.2.8=py_0
   - pybind11-abi=5=hd3eb1b0_0
   - pycparser=2.21=pyhd3eb1b0_0
-  - pydantic=2.7.4=pyhd8ed1ab_0
   - pydantic-core=2.18.4=py39ha68c5e3_0
   - pygments=2.18.0=pyhd8ed1ab_0
   - pyjwt=2.8.0=py39h06a4308_0
   - pyopenssl=24.0.0=py39h06a4308_0
+  - pyparsing=3.0.9=py39h06a4308_0
   - pypdf=4.2.0=py39h06a4308_0
   - pysocks=1.7.1=py39h06a4308_0
   - pytesseract=0.3.10=py39h06a4308_0
@@ -209,16 +219,16 @@ dependencies:
   - python-dateutil=2.9.0post0=py39h06a4308_2
   - python-dotenv=1.0.1=pyhd8ed1ab_0
   - python-flatbuffers=2.0=pyhd3eb1b0_0
+  - python-jose=3.3.0=pyh6c4a22f_1
   - python-tzdata=2023.3=pyhd3eb1b0_0
   - python-xxhash=2.0.2=py39h5eee18b_1
   - python_abi=3.9=4_cp39
-  - pytz=2024.1=py39h06a4308_0
   - pyyaml=6.0.1=py39h5eee18b_0
   - pyzmq=26.0.3=py39ha1047a2_0
   - re2=2023.02.01=hcb278e6_0
   - readline=8.2=h5eee18b_0
   - regex=2023.10.3=py39h5eee18b_0
-  - requests=2.32.2=py39h06a4308_0
+  - requests=2.31.0=py39h06a4308_0
   - requests-oauthlib=1.3.0=py_0
   - responses=0.13.3=pyhd3eb1b0_0
   - rsa=4.7.2=pyhd3eb1b0_1
@@ -226,22 +236,20 @@ dependencies:
   - safetensors=0.4.2=py39ha89cbab_0
   - scikit-learn=1.4.2=py39h1128e8f_1
   - scipy=1.12.0=py39h5f9d8c6_0
+  - selenium=4.23.0=pyhd8ed1ab_0
+  - selenium-manager=4.23.0=h9678756_0
   - setuptools=70.1.0=pyhd8ed1ab_0
   - six=1.16.0=pyhd3eb1b0_1
   - snappy=1.1.10=h6a678d5_1
   - sniffio=1.3.1=pyhd8ed1ab_0
+  - sortedcontainers=2.4.0=pyhd3eb1b0_0
+  - soupsieve=2.5=py39h06a4308_0
   - sqlalchemy=2.0.31=py39hd3abc70_0
   - sqlite=3.46.0=h6d4b2fc_0
   - stack_data=0.6.2=pyhd8ed1ab_0
+  - starlette=0.27.0=py39h06a4308_0
   - tbb=2021.8.0=hdb19cb5_0
   - tenacity=8.4.2=pyhd8ed1ab_0
-  - tensorboard=2.11.0=py39h06a4308_0
-  - tensorboard-data-server=0.6.1=py39h52d8a92_0
-  - tensorboard-plugin-wit=1.8.1=py39h06a4308_0
-  - tensorflow=2.11.1=cuda112py39h01bd6f0_0
-  - tensorflow-base=2.11.1=cuda112py39h0320e7d_0
-  - tensorflow-estimator=2.11.1=cuda112py39h11d7a3b_0
-  - tensorflow-gpu=2.11.1=cuda112py39h0bbbad9_0
   - termcolor=2.1.0=py39h06a4308_0
   - tesseract=5.3.2=h7aa9634_1
   - threadpoolctl=2.2.0=pyh0d69192_0
@@ -250,16 +258,18 @@ dependencies:
   - tornado=6.4.1=py39h5eee18b_0
   - tqdm=4.66.4=py39h2f386ee_0
   - traitlets=5.14.3=py39h06a4308_0
-  - transformers=4.37.2=py39h06a4308_0
+  - trio=0.24.0=py39h06a4308_0
+  - trio-websocket=0.11.1=pyhd8ed1ab_0
   - typing-extensions=4.12.2=hd8ed1ab_0
   - typing_extensions=4.12.2=pyha770c72_0
   - tzdata=2024a=h04d1e81_0
-  - urllib3=2.2.2=py39h06a4308_0
   - utf8proc=2.6.1=h5eee18b_1
+  - uvicorn=0.20.0=py39h06a4308_0
   - wcwidth=0.2.13=pyhd8ed1ab_0
+  - websocket-client=1.8.0=py39h06a4308_0
   - werkzeug=3.0.3=py39h06a4308_0
-  - wheel=0.43.0=py39h06a4308_0
   - wrapt=1.14.1=py39h5eee18b_0
+  - wsproto=1.2.0=pyhd8ed1ab_0
   - xxhash=0.8.0=h7f8727e_3
   - xz=5.4.6=h5eee18b_1
   - yaml=0.2.5=h7b6447c_0
@@ -270,38 +280,110 @@ dependencies:
   - zstd=1.5.5=hc292b87_2
   - pip:
       - altair==5.3.0
+      - asgiref==3.8.1
       - asn1crypto==1.5.1
+      - attr==0.3.1
+      - azure-core==1.30.2
+      - azure-storage-blob==12.20.0
+      - bleach==5.0.1
+      - boto==2.49.0
+      - boto3==1.34.143
+      - botocore==1.34.143
+      - boxing==0.1.4
+      - colorama==0.4.6
       - dataclasses-json==0.6.7
+      - defusedxml==0.7.1
       - distro==1.9.0
+      - django==3.2.25
+      - django-annoying==0.10.6
+      - django-cors-headers==3.6.0
+      - django-csp==3.7
+      - django-debug-toolbar==3.2.1
+      - django-environ==0.10.0
+      - django-extensions==3.1.0
+      - django-filter==2.4.0
+      - django-model-utils==4.1.1
+      - django-ranged-fileresponse==0.1.2
+      - django-rq==2.5.1
+      - django-storages==1.12.3
+      - django-user-agents==0.4.0
+      - djangorestframework==3.13.1
+      - drf-dynamic-fields==0.3.0
+      - drf-flex-fields==0.9.5
+      - drf-generators==0.3.0
+      - expiringdict==1.2.2
       - gitdb==4.0.11
       - gitpython==3.1.43
-      - h11==0.14.0
+      - google-api-core==2.19.1
+      - google-cloud-appengine-logging==1.4.4
+      - google-cloud-audit-log==0.2.5
+      - google-cloud-core==2.4.1
+      - google-cloud-logging==3.10.0
+      - google-cloud-storage==2.17.0
+      - google-crc32c==1.5.0
+      - google-resumable-media==2.7.1
+      - googleapis-common-protos==1.63.2
+      - grpc-google-iam-v1==0.13.1
+      - grpcio==1.65.0
+      - grpcio-status==1.62.2
+      - htmlmin==0.1.12
       - httpcore==1.0.5
       - httpx==0.27.0
-      - jsonschema==4.22.0
+      - humansignal-drf-yasg==1.21.9
+      - ijson==3.2.3
+      - inflection==0.5.1
+      - isodate==0.6.1
+      - jmespath==1.0.1
+      - jsonschema==3.2.0
       - jsonschema-specifications==2023.12.1
       - langchain-community==0.2.6
       - langchain-openai==0.1.10
+      - launchdarkly-server-sdk==8.2.1
+      - lockfile==0.12.2
       - markdown-it-py==3.0.0
       - marshmallow==3.21.3
       - mdurl==0.1.2
       - mypy-extensions==1.0.0
+      - nltk==3.6.7
       - openai==1.35.5
+      - ordered-set==4.0.2
       - pdf2image==1.17.0
       - pg8000==1.31.2
       - pgvector==0.3.0
       - pillow==10.3.0
+      - proto-plus==1.24.0
+      - pydantic==1.10.17
       - pydeck==0.9.1
       - pymupdf==1.24.7
       - pymupdfb==1.24.6
+      - pyrfc3339==1.1
+      - pyrsistent==0.20.0
+      - python-json-logger==2.0.4
+      - python-multipart==0.0.9
+      - pytz==2022.7.1
+      - redis==3.5.3
       - referencing==0.35.1
       - rich==13.7.1
       - rpds-py==0.18.1
+      - rq==1.10.1
+      - ruff==0.5.4
+      - rules==2.2
+      - s3transfer==0.10.2
       - scramp==1.4.5
+      - semver==3.0.2
+      - sentry-sdk==2.9.0
       - smmap==5.0.1
+      - sqlparse==0.5.0
       - tiktoken==0.7.0
       - toml==0.10.2
       - toolz==0.12.1
       - typing-inspect==0.9.0
+      - ua-parser==0.18.0
+      - ujson==5.10.0
+      - uritemplate==4.1.1
+      - urllib3==1.26.19
+      - user-agents==2.2.0
       - watchdog==4.0.1
-prefix: /home/remcocoppens/miniconda3/envs/ls-venv
+      - webencodings==0.5.1
+      - wheel==0.40.0
+      - xmljson==0.2.0
