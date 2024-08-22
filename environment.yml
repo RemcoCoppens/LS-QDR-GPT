@@ -263,6 +263,7 @@ dependencies:
   - typing-extensions=4.12.2=hd8ed1ab_0
   - typing_extensions=4.12.2=pyha770c72_0
   - tzdata=2024a=h04d1e81_0
+  - urllib3=1.26.19=py39h06a4308_0
   - utf8proc=2.6.1=h5eee18b_1
   - uvicorn=0.20.0=py39h06a4308_0
   - wcwidth=0.2.13=pyhd8ed1ab_0
@@ -381,9 +382,9 @@ dependencies:
       - ua-parser==0.18.0
       - ujson==5.10.0
       - uritemplate==4.1.1
-      - urllib3==1.26.19
       - user-agents==2.2.0
       - watchdog==4.0.1
       - webencodings==0.5.1
       - wheel==0.40.0
       - xmljson==0.2.0
+prefix: /home/remcocoppens/miniconda3/envs/QDR-env
