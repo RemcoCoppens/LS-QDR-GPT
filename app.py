@@ -52,14 +52,20 @@ def process():
     ls_data_ingestion, response_data, uploaded_files = [], [], []
 
     for file in files:
-        if file and file.filename.endswith('.pdf'):
-            pdf_path = os.path.join('/tmp', file.filename)
-            file.save(pdf_path)
+        if file:
+            _, file_extension = os.path.splitext(file.filename)
+            if file_extension.lower() == ".pdf":
 
-            try:
-                doc = ProcessDocument(file_path=pdf_path)
-            except Exception as e:
-                continue
+                pdf_path = os.path.join('/tmp', file.filename)
+                file.save(pdf_path)
+
+                try:
+                    doc = ProcessDocument(file_path=pdf_path)
+                except Exception as e:
+                    continue
+
+            else:
+                response_data.append({"filename": file.filename, "status": "Invalid file format"})
 
             text, labels = doc.get_LS_output()
             ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels, ))
@@ -67,7 +73,7 @@ def process():
             uploaded_files.append(file.filename)
             response_data.append({"filename": file.filename, "status": "Processed"})
         else:
-            response_data.append({"filename": file.filename, "status": "Invalid file format"})
+            response_data.append({"filename": file.filename, "status": "No file given"})
 
     upload_to_label_studio(
         data=ls_data_ingestion,
