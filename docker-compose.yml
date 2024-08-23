@@ -4,11 +4,12 @@ services:
   qdr-labeling:
     build: .
     container_name: qdr-labeling-container
-    volumes:
-      - qdr-data:/app/data
     ports:
       - "5000:5000"
       - "8080:8080"
+    volumes:
+      - qdr-labeling-data:/app/label-studio-data
 
 volumes:
-  qdr-data:
+  qdr-labeling-data:
+    external: true

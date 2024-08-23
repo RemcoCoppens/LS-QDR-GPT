@@ -16,6 +16,12 @@ SHELL ["conda", "run", "-n", "QDR-env", "/bin/bash", "-c"]
 # Install label-studio within the conda environment
 RUN pip install label-studio
 
+# Set the environment variable for Label Studio's data directory
+ENV LABEL_STUDIO_ROOT /app/label-studio-data
+
+# Alternatively, you could add the storage-dir option in your start.sh script like:
+# CMD ["conda", "run", "--no-capture-output", "-n", "QDR-env", "label-studio", "start", "--port", "8080", "--storage-dir", "/app/label-studio-data"]
+
 # Copy your application files
 COPY . /app
 

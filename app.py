@@ -8,17 +8,16 @@ import re
 app = Flask(__name__, template_folder='templates/')
 app.secret_key = 'ZFoaoe7ou3'
 
-# @app.route('/')
-# def index():
-#     projects = get_ls_projects()
-#     return render_template('upload.html', projects=projects)
-
 @app.route('/')
 def index():
     if 'api_key' not in session:
         return redirect(url_for('get_api_key'))
-    projects = get_ls_projects()
-    return render_template('upload.html', projects=projects)
+    
+    try:
+        projects = get_ls_projects()
+        return render_template('upload.html', projects=projects)
+    except Exception:
+        return redirect(url_for('get_api_key'))
 
 @app.route('/get_api_key', methods=['GET', 'POST'])
 def get_api_key():
