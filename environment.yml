@@ -387,4 +387,3 @@ dependencies:
       - webencodings==0.5.1
       - wheel==0.40.0
       - xmljson==0.2.0
-prefix: /home/remcocoppens/miniconda3/envs/QDR-env
