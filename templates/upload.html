@@ -22,7 +22,10 @@
                 </div>
                 <div class="input-group">
                     <label for="files">Choose Files:</label>
-                    <input type="file" id="files" name="files" multiple>
+                    <!-- Hide the default file input -->
+                    <input type="file" id="files" name="files" multiple style="display: none;">
+                    <!-- Custom button to trigger file selection -->
+                    <button type="button" id="select-files">Choose Files</button>
                     <button type="button" id="clear-files" style="display: none;">X</button>
                 </div>
                 <div class="input-group">
@@ -41,11 +44,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
+        // Function to handle the custom file selection button
+        $('#select-files').click(function() {
+            $('#files').click();
+        });
+
         // Function to handle file selection change
         $('#files').change(function() {
             var fileList = '';
             var files = $(this)[0].files;
             for (var i = 0; i < files.length; i++) {
+                // Display the full filename
                 fileList += '<p>' + files[i].name + '</p>';
             }
             $('#file-list').html(fileList);
