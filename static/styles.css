@@ -31,7 +31,7 @@ h1 {
     width: 100px;
 }
 
-.btn-goto-labelstudio {
+.btn-goto{
     display: inline-block;
     background-color: #008ACF;
     color: #fff;
@@ -42,7 +42,7 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.btn-goto-labelstudio:hover {
+.btn-goto:hover {
     background-color: #006ba1;
 }
 
@@ -99,3 +99,24 @@ input[type="file"] {
     background-color: #ff4836; /* Darker red on hover */
 }
 
+#upload-btn {
+    display: inline-block;
+    background-color: #008ACF;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#upload-btn:hover {
+    background-color: #006ba1;
+}
+
+#upload-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

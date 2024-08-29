@@ -50,35 +50,66 @@ def process():
 
     ls_data_ingestion, response_data, uploaded_files = [], [], []
 
+    exceptions, error_files = [], []
     for file in files:
-        if file:
-            _, file_extension = os.path.splitext(file.filename)
-            if file_extension.lower() == ".pdf":
+        try:
+            if file:
+                _, file_extension = os.path.splitext(file.filename)
+                if file_extension.lower() == ".pdf":
 
-                pdf_path = os.path.join('/tmp', file.filename)
-                file.save(pdf_path)
+                    pdf_path = os.path.join('/tmp', file.filename)
+                    file.save(pdf_path)
+
+                    try:
+                        doc = ProcessDocument(file_path=pdf_path)
+                    except Exception as e:
+                        error_files.append(file.filename)
+                        exceptions.append(
+                            f"Unable to process document: {file.filename}, Error: {str(e)}"
+                        )
+                        print(f"Unable to process document: {file.filename}, Error: {str(e)}")
+                        continue
+
+                else:
+                    response_data.append({"filename": file.filename, "status": "Invalid file format"})
 
                 try:
-                    doc = ProcessDocument(file_path=pdf_path)
+                    text, labels = doc.get_LS_output()
+                    ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels, file_name=file.filename))
                 except Exception as e:
+                    error_files.append(file.filename)
+                    print(f"Unable to prepare task for file: {file.filename}, Error: {str(e)}")
+                    exceptions.append(
+                        f"Unable to prepare task for file: {file.filename}, Error: {str(e)}"
+                    )
                     continue
 
+                uploaded_files.append(file.filename)
+                response_data.append({"filename": file.filename, "status": "Processed"})
             else:
-                response_data.append({"filename": file.filename, "status": "Invalid file format"})
+                response_data.append({"filename": file.filename, "status": "No file given"})
 
-            text, labels = doc.get_LS_output()
-            ls_data_ingestion.append(prepare_task(raw_text=text, labels=labels, ))
+        except Exception as e:
+            error_files.append(file.filename)
+            exceptions.append(
+                f"Unexpected error occurred for file: {file.filename}, Error: {str(e)}"
+            )
+            print(f"Unexpected error occurred for file: {file.filename}, Error: {str(e)}")
+            continue
 
-            uploaded_files.append(file.filename)
-            response_data.append({"filename": file.filename, "status": "Processed"})
-        else:
-            response_data.append({"filename": file.filename, "status": "No file given"})
+    if len(ls_data_ingestion) != 0:
+        upload_to_label_studio(
+            data=ls_data_ingestion,
+            project_title=project_title
+        )
 
-    upload_to_label_studio(
-        data=ls_data_ingestion,
-        project_title=project_title
+    return render_template(
+        'process.html', 
+        project_name=project_title,
+        uploaded_files=uploaded_files,
+        error_files=error_files,
+        exceptions=exceptions
     )
-    return render_template('process.html', project_name=project_title, uploaded_files=uploaded_files)
 
 def get_ls_projects() -> list:
     client = Client(url='http://localhost:8080', api_key=session.get('api_key'))
@@ -103,7 +134,7 @@ def get_spans(text:str, attributes:dict, only_first_occurrence:bool=True) -> lis
                     break
     return spans
 
-def prepare_task(raw_text:str, labels:dict) -> dict:   
+def prepare_task(raw_text:str, labels:dict, file_name:str) -> dict:   
     results = []
     cleaned_labels = {key: value for key, value in labels.items() if value is not None}
 
@@ -124,7 +155,8 @@ def prepare_task(raw_text:str, labels:dict) -> dict:
 
     return {
         'data': {
-            'text': raw_text
+            'text': raw_text,
+            'filename': file_name
         },
         'annotations': [{
             'model_version': 'beta_V1',

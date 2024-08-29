@@ -1,5 +1,3 @@
-<!-- process.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +17,47 @@
                     <li>{{ file }}</li>
                 {% endfor %}
             </ul>
-            <a href="http://localhost:5000" class="btn-goto-labelstudio">Upload more data</a>
-            <a href="http://localhost:8080" class="btn-goto-labelstudio">Go to Labelstudio</a>
+            <!-- Displaying errors -->
+            <h3>Errors:</h3>
+            <ul id="error-list">
+                {% for errfile in error_files %}
+                    <li>{{ errfile }}</li>
+                {% endfor %}
+            </ul>
+            <!-- Button to trigger the error report download -->
+            <button id="print-error-report" class="btn-goto">Export error report</button>
+            <a href="http://localhost:5000" class="btn-goto">Upload more data</a>
+            <a href="http://localhost:8080" class="btn-goto">Go to Labelstudio</a>
         </div>
     </div>
+
+    <!-- JavaScript for downloading error report -->
+    <script type="text/javascript">
+        // Make sure the exceptions variable is correctly passed to the script
+        const errorData = {{ exceptions | tojson | safe }};
+
+        // Add an event listener to the button to trigger the download function
+        document.getElementById('print-error-report').addEventListener('click', function() {
+            downloadErrorReport(errorData);
+        });
+
+        function downloadErrorReport(errors) {
+            if (errors && errors.length > 0) {
+                const errorContent = errors.join("\n");
+                const blob = new Blob([errorContent], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'error_report.txt';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } else {
+                alert('No errors to report.');
+            }
+        }
+    </script>
 </body>
 </html>

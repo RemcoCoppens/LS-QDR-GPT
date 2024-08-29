@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="submit-button">
-                    <input type="submit" value="Upload Documents">
+                    <input type="submit" value="Upload Documents" id="upload-btn" disabled>
                 </div>
             </form>
         </div>
@@ -53,8 +53,10 @@
             // Toggle visibility of clear button based on file selection
             if (files.length > 0) {
                 $('#clear-files').show();
+                $('#upload-btn').prop('disabled', false);
             } else {
                 $('#clear-files').hide();
+                $('#upload-btn').prop('disabled', true);
             }
         });
 
@@ -63,6 +65,7 @@
             $('#files').val(null);
             $('#file-list').html('');
             $(this).hide();
+            $('#upload-btn').prop('disabled', true);
         });
     });
     </script>
