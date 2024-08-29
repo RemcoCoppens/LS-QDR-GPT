@@ -1,0 +1,5 @@
+# Ensure shell scripts retain LF line endings
+*.sh text eol=lf
+
+# Other files can be treated as binary to prevent line ending changes
+* binary

@@ -32,4 +32,4 @@ RUN chmod +x start.sh
 EXPOSE 5000 8080
 
 # Start the Flask app using the conda environment
-CMD ["conda", "run", "--no-capture-output", "-n", "QDR-env", "./start.sh"]
+CMD ["conda", "run", "--no-capture-output", "-n", "QDR-env", "./start.linux.sh"]
