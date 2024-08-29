@@ -1,11 +1,6 @@
-version: '3.8'
-
 services:
   qdr-labeling:
-    build:
-      context: .
-      dockerfile: dockerfile.windows
-    container_name: qdr-labeling-container
+    build: .
     ports:
       - "5000:5000"
       - "8080:8080"
