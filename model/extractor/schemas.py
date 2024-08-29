@@ -21,18 +21,18 @@ class KeuringsRapport(BaseModel):
     klant_naam: Optional[str] = Field(None, description="Naam van de klant of beheerder die verantwoordelijk is voor de uitgevoerde werkzaamheden.")
     gebouw_naam: Optional[str] = Field(None, description="Naam van het gebouw waarop de werkzaamheden zijn uitgevoerd.")
     adres: Optional[str] = Field(None, description="Adres van de locatie waar de werkzaamheden zijn verricht.")
-    soort_installatie: Optional[List[str]] = Field(None, description="Type installatie dat is geïnspecteerd, zoals elektrisch, sanitair, HVAC, enz.")
-    element_merk: Optional[List[str]] = Field(None, description="Merk(en) van de geïnspecteerde elementen, zoals apparaten, machines of onderdelen.")
-    element_type: Optional[list[str]] = Field(None, description="Type(s) van de geïnspecteerde elementen, bijvoorbeeld boiler, airconditioning, lift, enz.")
-    element_ID: Optional[list[str]] = Field(None, description="Unieke identificatiecode(s) van de geïnspecteerde elementen, zoals serienummers, modelnummers, enz.")
-    ruimte_nummer: Optional[list[str]] = Field(None, description="Nummer(s) of code(s) die de specifieke ruimte(s) identificeren waarin de elementen zich bevinden.")
+    soort_installatie: List[str] = Field(default_factory=list, description="Type installatie dat is geïnspecteerd, zoals elektrisch, sanitair, HVAC, enz.")
+    element_merk: List[str] = Field(default_factory=list, description="Merk(en) van de geïnspecteerde elementen, zoals apparaten, machines of onderdelen.")
+    element_type: list[str] = Field(default_factory=list, description="Type(s) van de geïnspecteerde elementen, bijvoorbeeld boiler, airconditioning, lift, enz.")
+    element_ID: list[str] = Field(default_factory=list, description="Unieke identificatiecode(s) van de geïnspecteerde elementen, zoals serienummers, modelnummers, enz.")
+    ruimte_nummer: list[str] = Field(default_factory=list, description="Nummer(s) of code(s) die de specifieke ruimte(s) identificeren waarin de elementen zich bevinden.")
     ruimte_omschrijving: Optional[str] = Field(None, description="Beschrijving van de ruimte(s) waarin de inspectie heeft plaatsgevonden, zoals 'kantoor', 'hal', 'technische ruimte', enz.")
     datum_van_keuring: Optional[str] = Field(None, description="Datum waarop de keuring heeft plaatsgevonden, in het formaat YYYY-MM-DD.")
-    keuringsresultaat: Optional[list[str]] = Field(None, description="Resultaten van de keuring, bijvoorbeeld 'goedgekeurd', 'afgekeurd', 'vereist onderhoud', enz.")
-    herstel_acties: Optional[list[str]] = Field(None, description="Acties die moeten worden ondernomen om eventuele gebreken of tekortkomingen te herstellen.")
-    gebreken: Optional[list[str]] = Field(None, description="Eventuele gebreken, defecten of tekortkomingen die zijn geconstateerd tijdens de keuring.")
-    opmerkingen: Optional[list[str]] = Field(None, description="Aanvullende opmerkingen van de inspecteur over de staat van de installatie of andere relevante informatie.")
-    tijdsbesteding_monteur: Optional[list[str]] = Field(None, description="De tijd die de monteur heeft besteed aan de keuring of aan het uitvoeren van herstelwerkzaamheden, indien van toepassing.")
+    keuringsresultaat: list[str] = Field(default_factory=list, description="Resultaten van de keuring, bijvoorbeeld 'goedgekeurd', 'afgekeurd', 'vereist onderhoud', enz.")
+    herstel_acties: list[str] = Field(default_factory=list, description="Acties die moeten worden ondernomen om eventuele gebreken of tekortkomingen te herstellen.")
+    gebreken: list[str] = Field(default_factory=list, description="Eventuele gebreken, defecten of tekortkomingen die zijn geconstateerd tijdens de keuring.")
+    opmerkingen: list[str] = Field(default_factory=list, description="Aanvullende opmerkingen van de inspecteur over de staat van de installatie of andere relevante informatie.")
+    tijdsbesteding_monteur: list[str] = Field(default_factory=list, description="De tijd die de monteur heeft besteed aan de keuring of aan het uitvoeren van herstelwerkzaamheden, indien van toepassing.")
 
     @classmethod
     def get_attribute_names(cls) -> list:
@@ -98,6 +98,19 @@ class InspectieOnderhoudsRapport(BaseModel):
     gebreken: Optional[list[str]] = Field(None, description="Eventuele gebreken, defecten of tekortkomingen die zijn geconstateerd tijdens de inspectie of het onderhoud.")
     opmerkingen: Optional[list[str]] = Field(None, description="Aanvullende opmerkingen van de inspecteur of monteur over de staat van de installatie of andere relevante informatie.")
     tijdsbesteding_monteur: Optional[list[str]] = Field(None, description="De tijd die de monteur heeft besteed aan de inspectie of aan het uitvoeren van onderhoudswerkzaamheden, indien van toepassing.")
+
+    # @validator('*', pre=True, each_item=False)
+    # def force_type_conversion(cls, v, field):
+    #     # Check if the field should be a list of strings
+    #     if isinstance(v, list) and field.type_ == List[str]:
+    #         return [str(item) for item in v]
+    #     elif field.type_ == List[str]:
+    #         # If it's not a list, make it a list with one string element
+    #         return [str(v)]
+    #     elif field.type_ == str:
+    #         # If it should be a string, force conversion to string
+    #         return str(v)
+    #     return v
 
     @classmethod
     def get_attribute_names(cls) -> list:

@@ -55,7 +55,7 @@ class ExtractAttributes:
                     "Je krijgt voorverwerkte Nederlandse teksten en jouw taak is om alleen relevante informatie te extraheren die overeenkomt met de attributen in de bijbehorende schema's. "
                     "Zorg ervoor dat verschillende attributen nooit dezelfde waarde hebben en alle waarden in stringformaat worden geretourneerd. "
                     "Geef alleen waarden terug waarvan je zeker weet dat ze correct zijn. "
-                    "Als je twijfelt over een bepaalde waarde, retourneer dan een waarde van het type NoneType."
+                    "Als je twijfelt over een bepaalde waarde, retourneer dan de aangegeven default waarde."
                 ),
                 MessagesPlaceholder("examples"),
                 ("human", "{text}"),
