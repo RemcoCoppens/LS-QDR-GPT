@@ -18,7 +18,7 @@ Constants:
 VALID_DOC_TYPES = ['.pdf']
 
 PDF_PARSE_THRESHOLD = 0
-MAX_PAGES_INGESTION = 20
+MAX_PAGES_INGESTION = 15
 PAGE_REMOVAL_PATTERNS = ["inhoudsopgave", "gebruikte afkortingen"]
 
 DOC_PREVIEW_PAGES = 2

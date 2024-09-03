@@ -1,7 +1,13 @@
 from dotenv import load_dotenv
 from datetime import datetime
-import json
-import os
+
+
+
+
+import tiktoken
+
+
+
 
 from langchain_community.callbacks import get_openai_callback
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -33,8 +39,30 @@ class ExtractAttributes:
             include_raw=False,
         )
 
-        self.attributes = self._EXTRACT(input=raw_text)
+        self.buffer_tokens = 1000
+        self.validation_tokenizer = tiktoken.encoding_for_model("gpt-3.5-turbo")
+        self.prompt_token_length = self.get_prompt_token_length(str(self.runnable))
+        self.raw_text = self.truncate_text(text=raw_text, token_limit=16384)
 
+        self.attributes = self._EXTRACT(input=self.raw_text)
+
+    def get_prompt_token_length(self, prompt_text:str) -> int:
+        tokens = self.validation_tokenizer.encode(prompt_text)
+        return len(tokens)
+
+    def truncate_text(self, text: str, token_limit: int) -> str:
+        available_tokens = token_limit - self.prompt_token_length
+
+        tokens = self.validation_tokenizer.encode(text)
+
+        if len(tokens) > available_tokens:
+
+            tokens = tokens[:available_tokens]
+            truncated_text = self.validation_tokenizer.decode(tokens)
+            return truncated_text
+        else:
+            return text
+        
     def setup_environment(self) -> None:
         """Load and set the environmental variables.
         """
